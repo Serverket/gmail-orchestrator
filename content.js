@@ -20,7 +20,7 @@ function tryClickCheckMailButton() {
       if (targetSpan) {
         if (targetSpan.closest('button')) {
           checkMailButton = targetSpan.closest('button');
-        } else if (targetSpan.id === ':301' || targetSpan.className.includes('rP sA')) {
+        } else if (targetSpan.className.includes('rP sA')) {
           // If it's the specific span with the id or class mentioned in the requirements
           checkMailButton = targetSpan;
         }
@@ -38,7 +38,7 @@ function tryClickCheckMailButton() {
 // Mutation observer to detect changes in the DOM
 const observer = new MutationObserver((mutations) => {
   // If we're on the settings page, we check if the button is already available
-  if (window.location.hash.includes('#settings/accounts')) {
+  if (window.location.hash && window.location.hash.includes('#settings/accounts')) {
     tryClickCheckMailButton();
   }
 });

@@ -11,7 +11,7 @@ chrome.action.onClicked.addListener(async () => {
     // STEP 1: Detect if inbox tab is already open
     console.log("Looking for existing inbox tab...");
     let inboxTab = null;
-    const gmailInboxUrl = "https://mail.google.com/mail/u/2/#inbox";
+    let accountIndex = null; // Store the detected account index
     
     // Query all open tabs
     const allTabs = await chrome.tabs.query({});
@@ -19,17 +19,23 @@ chrome.action.onClicked.addListener(async () => {
     
     // Check each tab for Gmail inbox
     for (const tab of allTabs) {
-      if (tab.url && tab.url.includes("mail.google.com/mail/u/2")) {
+      if (tab.url && tab.url.includes("mail.google.com/mail")) {
         console.log(`Gmail tab found: ${tab.url} (ID: ${tab.id})`);
+        
+        // Extract account index if present
+        const indexMatch = tab.url.match(/mail\.google\.com\/mail\/u\/(\d+)/);
+        const currentIndex = indexMatch ? `u/${indexMatch[1]}` : "";
         
         // Full verification for inbox
         if (!tab.url.includes('#settings') && 
             (tab.url.includes('#inbox') || 
-             tab.url === "https://mail.google.com/mail/u/2/" || 
-             tab.url === "https://mail.google.com/mail/u/2" ||
+             tab.url.match(/https:\/\/mail\.google\.com\/mail(\/u\/\d+)?\//) || 
+             tab.url.match(/https:\/\/mail\.google\.com\/mail(\/u\/\d+)?$/) ||
              !tab.url.includes('#'))) {
           console.log(`✅ INBOX FOUND: ${tab.url} (ID: ${tab.id})`);
           inboxTab = tab;
+          accountIndex = currentIndex;
+          console.log(`Detected account index: ${accountIndex || "default (primary)"}`);
           break;
         }
       }
@@ -37,8 +43,8 @@ chrome.action.onClicked.addListener(async () => {
     
     // STEP 2: Focus on inbox tab or open new one if not found
     if (!inboxTab) {
-      console.log("No inbox tab found. Opening new one...");
-      inboxTab = await chrome.tabs.create({ url: gmailInboxUrl, active: true });
+      console.log("No inbox tab found. Opening new one with default account...");
+      inboxTab = await chrome.tabs.create({ url: "https://mail.google.com/mail/#inbox", active: true });
       // Wait for a moment for it to load
       await new Promise(resolve => setTimeout(resolve, 1000));
     } else {
@@ -46,9 +52,10 @@ chrome.action.onClicked.addListener(async () => {
       await chrome.tabs.update(inboxTab.id, { active: true });
     }
     
-    // STEP 3: Open settings tab in background
-    console.log("Opening settings tab in background...");
-    const settingsUrl = "https://mail.google.com/mail/u/2/#settings/accounts";
+    // STEP 3: Open settings tab in background using same account
+    console.log(`Opening settings tab in background for account ${accountIndex || "default (primary)"}...`);
+    const settingsUrl = `https://mail.google.com/mail/${accountIndex ? accountIndex + '/' : ''}#settings/accounts`;
+    console.log(`Settings URL: ${settingsUrl}`);
     const settingsTab = await chrome.tabs.create({ url: settingsUrl, active: false });
     
     // STEP 4: Wait for settings tab to load completely

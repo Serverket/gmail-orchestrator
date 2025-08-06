@@ -2,9 +2,14 @@
   "manifest_version": 3,
   "name": "Gmail Orchestrator",
   "version": "1.1",
-  "description": "Automates email verification in Gmail",
-  "permissions": ["tabs", "scripting"],
-  "host_permissions": ["https://mail.google.com/*"],
+  "description": "Automates Gmail actions to force immediate mail checking for external accounts.",
+  "permissions": [
+    "tabs",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://mail.google.com/*"
+  ],
   "background": {
     "service_worker": "background.js"
   },
@@ -13,6 +18,18 @@
     "js": ["content.js"]
   }],
   "action": {
-    "default_title": "Check mail now"
+    "default_title": "Check mail now",
+    "default_icon": {
+      "16": "icon16.png",
+      "32": "icon32.png",
+      "48": "icon48.png",
+      "128": "icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icon16.png",
+    "32": "icon32.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
   }
 }

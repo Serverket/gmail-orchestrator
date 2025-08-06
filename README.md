@@ -1,10 +1,16 @@
-# Gmail Orchestrator
+<p align="center">
+  <img src="gmail-orchestrator-logo.svg" alt="Gmail Orchestrator" width="400">
+</p>
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Chrome Extension](https://img.shields.io/badge/Platform-Chrome-blue.svg)](https://developer.chrome.com/docs/extensions/)
-[![Manifest V3](https://img.shields.io/badge/Manifest-V3-green.svg)](https://developer.chrome.com/docs/extensions/mv3/intro/)
-[![JavaScript](https://img.shields.io/badge/Language-JavaScript-yellow.svg)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
-[![Version](https://img.shields.io/badge/Version-1.1-blue.svg)]()
+<h1 align="center">🚀 Gmail Orchestrator Website</h1>
+
+<p align="center">
+  <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a>
+  <a href="https://developer.chrome.com/docs/extensions/"><img src="https://img.shields.io/badge/Platform-Chrome-blue.svg" alt="Platform: Chrome"></a>
+  <a href="https://developer.chrome.com/docs/extensions/mv3/intro/"><img src="https://img.shields.io/badge/Manifest-V3-green.svg" alt="Manifest V3"></a>
+  <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript"><img src="https://img.shields.io/badge/Language-JavaScript-yellow.svg" alt="Language: JavaScript"></a>
+  <a href=""><img src="https://img.shields.io/badge/Version-1.1-blue.svg" alt="Version: 1.1"></a>
+</p>
 
 ## :sparkles: Description
 Gmail Orchestrator is a Chrome extension that solves a common problem when using external email providers (corporate webmail, etc.) through Gmail. When you configure Gmail to receive and send emails from external accounts for free, Gmail only checks these accounts at long intervals that can range from 5 minutes to 8 hours, making it difficult to effectively use corporate emails in a free environment.
